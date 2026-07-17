@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DGM RDC - Tableau de Bord Stratégique</title>
+    <!-- CSS Dédié au tableau de bord -->
+    <link rel="stylesheet" href="dashboard.css">
+    <!-- FontAwesome pour les icônes de l'interface -->
+    <link rel="stylesheet" href="https://cloudflare.com">
+</head>
+<body class="dashboard-bg">
+
+    <div class="dashboard-wrapper">
+      
+      <!-- BARRE DE NAVIGATION DU CHEF DE POSTE -->
+      <nav class="dash-nav">
+        <div class="nav-brand">
+          <span class="flag-badge"></span>
+          <h2>DGM - Portail National</h2>
+        </div>
+        <div class="agent-info">
+          <span class="status-indicator"></span>
+          <p><span id="userRole">Chef de Poste</span> : <strong id="userMatricule">DGM-2026-X</strong></p>
+          <button id="btnLogout" class="btn-logout" title="Se déconnecter">
+            <i class="fa-solid fa-right-from-bracket"></i>
+          </button>
+        </div>
+      </nav>
+
+      <!-- CONTENU PRINCIPAL -->
+      <main class="dash-content">
+        <div class="welcome-section">
+          <h1>Tableau de Bord Stratégique — Bienvenue, <span id="agentNom">Agent</span></h1>
+          <p>Commune / Antenne Locale : <span id="currentPoste" class="badge-location">Sélection...</span></p>
+        </div>
