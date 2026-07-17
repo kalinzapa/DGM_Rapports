@@ -1,0 +1,184 @@
+/* --- CONFIGURATION GLOBALE --- */
+:root {
+    --rdc-blue: #0077c8;
+    --rdc-yellow: #f7d117;
+    --rdc-red: #ce1126;
+    --dark-bg: #1a1a2e;
+    --card-bg: rgba(255, 255, 255, 0.95);
+    --text-color: #333333;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body.login-bg {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(rgba(26, 26, 46, 0.85), rgba(0, 119, 200, 0.4)), 
+                url('https://wikimedia.org');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    padding: 20px;
+}
+
+/* --- CONTENEUR PRINCIPAL --- */
+.login-container {
+    background: var(--card-bg);
+    width: 100%;
+    max-width: 480px;
+    padding: 40px 30px;
+    border-radius: 12px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(5px);
+    border-top: 5px solid var(--rdc-blue);
+}
+
+/* --- ENTÊTE INSTITUTIONNELLE --- */
+.brand-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.logo-armoiries {
+    width: 100px;
+    height: auto;
+    margin-bottom: 15px;
+    filter: drop-shadow(0px 4px 8px rgba(0,0,0,0.1));
+}
+
+.brand-header h1 {
+    font-size: 1rem;
+    color: var(--rdc-red);
+    font-weight: 800;
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+}
+
+.brand-header h2 {
+    font-size: 0.85rem;
+    color: #555;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.brand-header h3 {
+    font-size: 1.1rem;
+    color: var(--rdc-blue);
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+/* Barre dégradée aux couleurs du drapeau */
+.drapeau-barre {
+    height: 4px;
+    width: 60%;
+    margin: 0 auto 15px auto;
+    background: linear-gradient(to right, var(--rdc-blue) 60%, var(--rdc-yellow) 65%, var(--rdc-yellow) 70%, var(--rdc-red) 75%);
+    border-radius: 2px;
+}
+
+.app-subtitle {
+    font-size: 0.9rem;
+    color: #666;
+    font-style: italic;
+}
+
+/* --- FORMULAIRE DE CONNEXION --- */
+.login-form .input-group {
+    margin-bottom: 20px;
+}
+
+.login-form label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--text-color);
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.login-form label i {
+    color: var(--rdc-blue);
+    margin-right: 6px;
+    width: 16px;
+}
+
+.login-form input, 
+.login-form select {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1.5px solid #cccccc;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    outline: none;
+    transition: all 0.3s ease;
+    background-color: #fff;
+}
+
+.login-form input:focus, 
+.login-form select:focus {
+    border-color: var(--rdc-blue);
+    box-shadow: 0 0 0 3px rgba(0, 119, 200, 0.15);
+}
+
+/* Notice Mode Hors-ligne */
+.offline-notice {
+    background-color: #fff9db;
+    border-left: 4px solid var(--rdc-yellow);
+    padding: 10px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    color: #665200;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Bouton d'action */
+.btn-login {
+    width: 100%;
+    padding: 14px;
+    background-color: var(--rdc-blue);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.btn-login:hover {
+    background-color: #005fa0;
+}
+
+.btn-login active {
+    background-color: #004c80;
+}
+
+/* --- PIED DE PAGE --- */
+.login-footer {
+    text-align: center;
+    margin-top: 35px;
+    font-size: 0.8rem;
+    color: #777;
+    border-top: 1px solid #eeeeee;
+    padding-top: 15px;
+}
+
+.security-mention {
+    color: var(--rdc-red);
+    margin-top: 5px;
+    font-weight: 600;
+}
