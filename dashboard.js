@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function() {
-    // 1. RÉCUPÉRATION DE LA SESSION ET SÉCURITÉ
+    // 1. RÉCUPÉRATION DE LA SESSION ET SÉCURITÉ IM MÉDIATE
     const sessionData = localStorage.getItem('agentConnecte');
 
     // Si aucune session n'est en mémoire, rejet immédiat vers la page de connexion
@@ -11,7 +11,33 @@ document.addEventListener("DOMContentLoaded", function() {
 
     const agent = JSON.parse(sessionData);
 
-    // 2. INJECTION DYNAMIQUE ET PERSONNALISATION DU TABLEAU DE BORD
+    // 2. GESTION DE L'INACTIVITÉ (DÉCONNEXION AUTOMATIQUE APRÈS 5 MINUTES)
+    let inactivityTimeout;
+    const fiveMinutes = 5 * 60 * 1000; // 300 000 millisecondes
+
+    function logout() {
+        localStorage.removeItem('agentConnecte'); // Efface les données de session
+        alert("⏱️ Session expirée : Vous avez été déconnecté pour inactivité.");
+        window.location.href = "index.html";
+    }
+
+    function resetInactivityTimer() {
+        clearTimeout(inactivityTimeout);
+        inactivityTimeout = setTimeout(logout, fiveMinutes);
+    }
+
+    // Liste des actions de l'utilisateur qui réinitialisent le compteur
+    const userEvents = ['mousemove', 'keydown', 'click', 'scroll', 'touchstart'];
+    
+    // Attache les écouteurs d'événements pour surveiller l'activité
+    userEvents.forEach(event => {
+        document.addEventListener(event, resetInactivityTimer);
+    });
+
+    // Initialisation du premier minuteur dès le chargement de la page
+    resetInactivityTimer();
+
+    // 3. INJECTION DYNAMIQUE ET PERSONNALISATION DU TABLEAU DE BORD
     if (document.getElementById('userMatricule')) {
         document.getElementById('userMatricule').textContent = agent.matricule;
     }
@@ -27,7 +53,7 @@ document.addEventListener("DOMContentLoaded", function() {
         document.getElementById('currentPoste').textContent = traduireNomPoste(agent.commune);
     }
 
-    // 3. GESTION DES DROITS ET RESTRICTIONS DE L'INTERFACE
+    // 4. GESTION DES DROITS ET RESTRICTIONS DE L'INTERFACE
     // Si l'utilisateur est un simple "Agent de Saisie", il ne peut pas lancer de recherche critique
     if (agent.role === "Agent de Saisie") {
         const btnAlerte = document.querySelector('.btn-action.alert');
@@ -35,85 +61,4 @@ document.addEventListener("DOMContentLoaded", function() {
             btnAlerte.style.display = "none"; // Masque le bouton de recherche globale
         }
     }
-
-    // 4. CHARGEMENT DES STATISTIQUES EN TEMPS RÉEL
-    mettreAjourLesStatistiques();
-
-    // 5. GESTIONNAIRE DE DÉCONNEXION
-    const btnLogout = document.getElementById('btnLogout');
-    if (btnLogout) {
-        btnLogout.addEventListener('click', function() {
-            localStorage.removeItem('agentConnecte');
-            window.location.href = "index.html";
-        });
-    }
 });
-
-/**
- * Fonction utilitaire pour afficher proprement le nom officiel de la commune sur l'écran
- */
-function traduireNomPoste(codeCommune) {
-    const communes = {
-        'bandalungwa': "Commune de Bandalungwa",
-        'barumbu': "Commune de Barumbu",
-        'bumbu': "Commune de Bumbu",
-        'gombe': "Commune de la Gombe",
-        'kalamu': "Commune de Kalamu",
-        'kasa-vubu': "Commune de Kasa-Vubu",
-        'kimbanseke': "Commune de Kimbanseke",
-        'kinshasa': "Commune de Kinshasa (Centre)",
-        'kintambo': "Commune de Kintambo",
-        'kisenso': "Commune de Kisenso",
-        'lemba': "Commune de Lemba",
-        'limete': "Commune de Limete",
-        'lingwala': "Commune de Lingwala",
-        'makala': "Commune de Makala",
-        'maluku': "Commune de Maluku",
-        'masina': "Commune de Masina",
-        'matete': "Commune de Matete",
-        'mont-ngafula': "Commune de Mont-Ngafula",
-        'ndjili': "Commune de N'djili",
-        'ngaba': "Commune de Ngaba",
-        'ngaliema': "Commune de Ngaliema",
-        'ngiri-ngiri': "Commune de Ngiri-Ngiri",
-        'nsele': "Commune de la N'sele",
-        'selembao': "Commune de Selembao"
-    };
-    return communes[codeCommune] || "Commune / Antenne Non Spécifiée";
-}
-
-/**
- * LOGIQUE DES CALCULS EN TEMPS RÉEL (HORS-LIGNE)
- * Lit le registre local et met à jour les 4 compteurs du tableau de bord
- */
-function mettreAjourLesStatistiques() {
-    let registreLocal = localStorage.getItem('registreDGM');
-    let listeVoyageurs = [];
-    
-    if (registreLocal !== null) {
-        listeVoyageurs = JSON.parse(registreLocal);
-    }
-
-    const countTotal = document.getElementById('countTotal');
-    const countValide = document.getElementById('countValide');
-    const countExpire = document.getElementById('countExpire');
-    const countRecent = document.getElementById('countRecent');
-
-    const total = listeVoyageurs.length;
-    if (countTotal) countTotal.textContent = total.toLocaleString();
-
-    const valides = listeVoyageurs.filter(v => v.statut === "VALIDE").length;
-    if (countValide) countValide.textContent = valides.toLocaleString();
-
-    const expires = listeVoyageurs.filter(v => v.statut === "EXPIRÉ").length;
-    if (countExpire) countExpire.textContent = expires.toLocaleString();
-
-    if (countRecent) countRecent.textContent = total.toLocaleString(); 
-}
-
-/**
- * Redirection vers le formulaire d'enregistrement d'un étranger
- */
-function ouvrirFormulaire() {
-    window.location.href = "formulaire.html";
-}
