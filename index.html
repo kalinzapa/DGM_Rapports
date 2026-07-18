@@ -3,34 +3,92 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DGM RDC - Tableau de Bord Stratégique</title>
-    <!-- CSS Dédié au tableau de bord -->
-    <link rel="stylesheet" href="dashboard.css">
-    <!-- FontAwesome pour les icônes de l'interface -->
+    <title>DGM RDC - Connexion Base de Données Unique</title>
+    <!-- Lien vers votre fichier CSS pour la personnalisation des styles -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Intégration optionnelle d'une police moderne et de FontAwesome pour les icônes de sécurité -->
     <link rel="stylesheet" href="https://cloudflare.com">
 </head>
-<body class="dashboard-bg">
+<body class="login-bg">
 
-    <div class="dashboard-wrapper">
-      
-      <!-- BARRE DE NAVIGATION DU CHEF DE POSTE -->
-      <nav class="dash-nav">
-        <div class="nav-brand">
-          <span class="flag-badge"></span>
-          <h2>DGM - Portail National</h2>
+    <!-- Conteneur principal de la page de connexion -->
+    <div class="login-container">
+        
+        <!-- Section Identité Nationale & Institutionnelle -->
+        <div class="brand-header">
+            <!-- Armoiries de la RDC (Justice - Paix - Travail) -->
+            <img src="https://wikimedia.org" alt="Armoiries RDC" class="logo-armoiries">
+            
+            <h1>RÉPUBLIQUE DÉMOCRATIQUE DU CONGO</h1>
+            <h2>MINISTÈRE DE L'INTÉRIEUR ET SÉCURITÉ</h2>
+            <h3>DIRECTION GÉNÉRALE DE MIGRATION (DGM)</h3>
+            
+            <div class="drapeau-barre"></div>
+            <p class="app-subtitle">Système de Base de Données Unique Hors-ligne</p>
         </div>
-        <div class="agent-info">
-          <span class="status-indicator"></span>
-          <p><span id="userRole">Chef de Poste</span> : <strong id="userMatricule">DGM-2026-X</strong></p>
-          <button id="btnLogout" class="btn-logout" title="Se déconnecter">
-            <i class="fa-solid fa-right-from-bracket"></i>
-          </button>
-        </div>
-      </nav>
 
-      <!-- CONTENU PRINCIPAL -->
-      <main class="dash-content">
-        <div class="welcome-section">
-          <h1>Tableau de Bord Stratégique — Bienvenue, <span id="agentNom">Agent</span></h1>
-          <p>Commune / Antenne Locale : <span id="currentPoste" class="badge-location">Sélection...</span></p>
+        <!-- Formulaire de Connexion Sécurisé -->
+        <form id="loginForm" class="login-form">
+            <div class="input-group">
+                <label for="matricule"><i class="fa-solid fa-id-card"></i> Matricule Agent</label>
+                <input type="text" id="matricule" placeholder="Ex: DGM-9842" required autocomplete="off">
+            </div>
+
+            <div class="input-group">
+                <label for="password"><i class="fa-solid fa-lock"></i> Mot de passe</label>
+                <input type="password" id="password" placeholder="••••••••" required>
+            </div>
+
+            <!-- Correction : Un seul bloc de sélection propre pour la Commune / Antenne Locale -->
+            <div class="input-group">
+                <label for="commune"><i class="fa-solid fa-location-dot"></i> Commune / Antenne Locale (DPK)</label>
+                <select id="commune" name="commune" required>
+                    <option value="" disabled selected>Sélectionnez votre Commune</option>
+                    <option value="bandalungwa">Bandalungwa</option>
+                    <option value="barumbu">Barumbu</option>
+                    <option value="bumbu">Bumbu</option>
+                    <option value="gombe">Gombe</option>
+                    <option value="kalamu">Kalamu</option>
+                    <option value="kasa-vubu">Kasa-Vubu</option>
+                    <option value="kimbanseke">Kimbanseke</option>
+                    <option value="kinshasa">Kinshasa (Commune)</option>
+                    <option value="kintambo">Kintambo</option>
+                    <option value="kisenso">Kisenso</option>
+                    <option value="lemba">Lemba</option>
+                    <option value="limete">Limete</option>
+                    <option value="lingwala">Lingwala</option>
+                    <option value="makala">Makala</option>
+                    <option value="maluku">Maluku</option>
+                    <option value="masina">Masina</option>
+                    <option value="matete">Matete</option>
+                    <option value="mont-ngafula">Mont-Ngafula</option>
+                    <option value="ndjili">N'djili</option>
+                    <option value="ngaba">Ngaba</option>
+                    <option value="ngaliema">Ngaliema</option>
+                    <option value="ngiri-ngiri">Ngiri-Ngiri</option>
+                    <option value="nsele">N'sele</option>
+                    <option value="selembao">Selembao</option>
+                </select>
+            </div>
+
+            <!-- Indicateur d'état hors-ligne pour rassurer l'agent au poste frontalier -->
+            <div class="offline-notice">
+                <i class="fa-solid fa-wifi-slash"></i> Mode autonome / Authentification locale active
+            </div>
+
+            <button type="submit" class="btn-login">
+                <i class="fa-solid fa-right-to-bracket"></i> S'authentifier et Entrer
+            </button>
+        </form>
+
+        <!-- Pied de page officiel -->
+        <div class="login-footer">
+            <p>&copy; 2026 Direction Générale de Migration | RDC</p>
+            <p class="security-mention">🔒 Accès restreint au personnel autorisé uniquement</p>
         </div>
+    </div>
+
+    <!-- Lien vers le fichier JavaScript (gère la vérification et le localStorage) -->
+    <script src="script.js"></script>
+</body>
+</html>
