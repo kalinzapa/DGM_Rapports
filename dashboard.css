@@ -231,3 +231,18 @@ body {
     padding: 14px; /* Plus simple à presser avec le doigt */
   }
 }
+
+/* --- AJUSTEMENTS TEXTE DÉCONNEXION --- */
+.btn-logout {
+  gap: 8px; /* Crée un espace de 8px entre l'icône et le texte */
+  font-weight: 600;
+}
+
+/* Style optionnel si vous trouvez le bouton trop large sur mobile */
+@media (max-width: 768px) {
+  .btn-logout {
+    width: auto; /* Permet au bouton de ne pas prendre toute la largeur sur mobile si vous préférez */
+    padding: 10px 20px;
+  }
+}
+
