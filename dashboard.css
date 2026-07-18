@@ -37,12 +37,13 @@ body {
   background-color: #ce1126;
   border: 2px solid #f7d117;
   border-radius: 50%;
+  flex-shrink: 0; /* Empêche le badge de se déformer sur petit écran */
 }
 
 .agent-info {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 12px;
   font-size: 14px;
 }
 
@@ -53,6 +54,7 @@ body {
   height: 8px;
   background-color: #28a745; /* Vert = Connecté */
   border-radius: 50%;
+  flex-shrink: 0;
 }
 
 /* Zone de contenu */
@@ -74,6 +76,8 @@ body {
   padding: 4px 10px;
   border-radius: 4px;
   font-weight: bold;
+  display: inline-block; /* Permet un comportement propre si le texte va à la ligne */
+  margin-top: 5px;
 }
 
 /* --- GRILLE DE CARTES --- */
@@ -164,10 +168,10 @@ body {
   background-color: #dc3545; /* Rouge d'alerte */
   color: white;
   border: none;
-  padding: 8px 12px;
+  padding: 10px 14px; /* Un peu plus grand pour faciliter le clic tactile */
   border-radius: 4px;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 15px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -179,5 +183,51 @@ body {
 }
 
 .btn-logout:active {
-  transform: scale(0.95); /* Léger effet d'enfoncement au clic */
+  transform: scale(0.95);
+}
+
+/* --- ADAPTATION MOBILE (MEDIA QUERIES) --- */
+@media (max-width: 768px) {
+  /* La navigation passe en colonne sur mobile */
+  .dash-nav {
+    flex-direction: column;
+    gap: 15px;
+    text-align: center;
+    padding: 15px;
+  }
+
+  .nav-brand {
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .nav-brand h2 {
+    font-size: 16px;
+  }
+
+  /* Infos agent et logout mieux alignés */
+  .agent-info {
+    width: 100%;
+    justify-content: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 12px;
+    gap: 15px;
+  }
+
+  /* Zone de bienvenue plus compacte */
+  .welcome-section h1 {
+    font-size: 20px;
+  }
+
+  /* Les boutons d'action s'étirent sur toute la largeur */
+  .actions-buttons {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .btn-action {
+    width: 100%;
+    text-align: center;
+    padding: 14px; /* Plus simple à presser avec le doigt */
+  }
 }
