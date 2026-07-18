@@ -1,1 +1,96 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DGM RDC - Tableau de Bord Stratégique</title>
+    <!-- CSS Dédié au tableau de bord -->
+    <link rel="stylesheet" href="dashboard.css">
+    <!-- FontAwesome pour les icônes de l'interface -->
+    <link rel="stylesheet" href="https://cloudflare.com">
+</head>
+<body class="dashboard-bg">
+
+    <div class="dashboard-wrapper">
+      
+      <!-- BARRE DE NAVIGATION DU CHEF DE POSTE -->
+      <nav class="dash-nav">
+        <div class="nav-brand">
+          <span class="flag-badge"></span>
+          <h2>DGM - Portail National</h2>
+        </div>
+        <div class="agent-info">
+          <span class="status-indicator"></span>
+          <p><span id="userRole">Chef de Poste</span> : <strong id="userMatricule">DGM-2026-X</strong></p>
+          <button id="btnLogout" class="btn-logout" title="Se déconnecter">
+            <i class="fa-solid fa-right-from-bracket"></i>
+          </button>
+        </div>
+      </nav>
+
+      <!-- CONTENU PRINCIPAL -->
+      <main class="dash-content">
+        <div class="welcome-section">
+          <h1>Tableau de Bord Stratégique — Bienvenue, <span id="agentNom">Agent</span></h1>
+          <p>Commune / Antenne Locale : <span id="currentPoste" class="badge-location">Sélection...</span></p>
+        </div>
+
+        <!-- GRILLE DES STATISTIQUES CLÉS -->
+        <section class="metrics-grid">
+          
+          <div class="metric-card border-blue">
+            <div class="metric-header">
+              <h3>Total Étrangers</h3>
+              <span class="icon">👥</span>
+            </div>
+            <p class="metric-value" id="countTotal">1,240</p>
+            <p class="metric-sub">Enregistrés ce mois</p>
+          </div>
+
+          <div class="metric-card border-green">
+            <div class="metric-header">
+              <h3>Visas Valides</h3>
+              <span class="icon">✅</span>
+            </div>
+            <p class="metric-value" id="countValide">1,102</p>
+            <p class="metric-sub">Situation régulière</p>
+          </div>
+
+          <div class="metric-card border-red">
+            <div class="metric-header">
+              <h3>Visas Expirés / Alertes</h3>
+              <span class="icon">⚠️</span>
+            </div>
+            <p class="metric-value" id="countExpire">138</p>
+            <p class="metric-sub">Action requise immédiatement</p>
+          </div>
+
+          <div class="metric-card border-yellow">
+            <div class="metric-header">
+              <h3>Ajouts Récents</h3>
+              <span class="icon">⚡</span>
+            </div>
+            <p class="metric-value" id="countRecent">24</p>
+            <p class="metric-sub">Ces dernières 24 heures</p>
+          </div>
+
+        </section>
+
+        <!-- SECTION DES ACTIONS RAPIDES -->
+        <section class="quick-actions">
+          <h2>Actions Prioritaires disponibles</h2>
+          <div class="actions-buttons">
+            <button class="btn-action primary" onclick="ouvrirFormulaire()">➕ Enregistrer un nouvel Étranger</button>
+            <button class="btn-action secondary">📄 Générer le Rapport du Jour</button>
+            <button class="btn-action alert">🔍 Lancer une Recherche de Profil</button>
+          </div>
+        </section>
+
+      </main>
+    </div>
+
+    <!-- Script logique externe -->
+    <script src="dashboard.js"></script>
+</body>
+</html>
 
