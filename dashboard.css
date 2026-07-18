@@ -158,3 +158,26 @@ body {
 .btn-action.primary { background-color: #003366; color: white; }
 .btn-action.secondary { background-color: #28a745; color: white; }
 .btn-action.alert { background-color: #e1ecf4; color: #003366; border: 1px solid #003366; }
+
+/* --- BOUTON DE DÉCONNEXION --- */
+.btn-logout {
+  background-color: #dc3545; /* Rouge d'alerte */
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s ease, transform 0.1s;
+}
+
+.btn-logout:hover {
+  background-color: #bd2130; /* Rouge plus sombre au survol */
+}
+
+.btn-logout:active {
+  transform: scale(0.95); /* Léger effet d'enfoncement au clic */
+}
