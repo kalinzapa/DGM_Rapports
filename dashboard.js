@@ -1,19 +1,56 @@
-        // Masquer les boutons d'action si l'agent n'a pas les droits
-        // Si l'utilisateur est un simple "Agent de Saisie", il ne peut pas lancer de recherche critique
-        if (agent.role === "Agent de Saisie") {
-            const btnAlerte = document.querySelector('.btn-action.alert');
-            if (btnAlerte) btnAlerte.style.display = "none"; // Masque le bouton de recherche globale
-        }
-    } else {
-        // Sécurité stricte : Si personne n'est connecté en mémoire, on renvoie au login
+document.addEventListener("DOMContentLoaded", function() {
+    // 1. RÉCUPÉRATION DE LA SESSION ET SÉCURITÉ
+    const sessionData = localStorage.getItem('agentConnecte');
+
+    // Si aucune session n'est en mémoire, rejet immédiat vers la page de connexion
+    if (!sessionData) {
         alert("⚠️ Accès refusé : Veuillez vous connecter d'abord.");
         window.location.href = "index.html";
+        return;
     }
-}
+
+    const agent = JSON.parse(sessionData);
+
+    // 2. INJECTION DYNAMIQUE ET PERSONNALISATION DU TABLEAU DE BORD
+    if (document.getElementById('userMatricule')) {
+        document.getElementById('userMatricule').textContent = agent.matricule;
+    }
+    if (document.getElementById('userRole')) {
+        document.getElementById('userRole').textContent = agent.role;
+    }
+    if (document.getElementById('agentNom')) {
+        document.getElementById('agentNom').textContent = agent.nom;
+    }
+    
+    // Récupération et traduction de la commune sélectionnée au login
+    if (document.getElementById('currentPoste') && agent.commune) {
+        document.getElementById('currentPoste').textContent = traduireNomPoste(agent.commune);
+    }
+
+    // 3. GESTION DES DROITS ET RESTRICTIONS DE L'INTERFACE
+    // Si l'utilisateur est un simple "Agent de Saisie", il ne peut pas lancer de recherche critique
+    if (agent.role === "Agent de Saisie") {
+        const btnAlerte = document.querySelector('.btn-action.alert');
+        if (btnAlerte) {
+            btnAlerte.style.display = "none"; // Masque le bouton de recherche globale
+        }
+    }
+
+    // 4. CHARGEMENT DES STATISTIQUES EN TEMPS RÉEL
+    mettreAjourLesStatistiques();
+
+    // 5. GESTIONNAIRE DE DÉCONNEXION
+    const btnLogout = document.getElementById('btnLogout');
+    if (btnLogout) {
+        btnLogout.addEventListener('click', function() {
+            localStorage.removeItem('agentConnecte');
+            window.location.href = "index.html";
+        });
+    }
+});
 
 /**
- * ACTUAlISATION : Traduction et formatage propre des communes de Kinshasa
- * Associe la valeur du menu déroulant HTML à son nom officiel pour l'affichage du Dashboard
+ * Fonction utilitaire pour afficher proprement le nom officiel de la commune sur l'écran
  */
 function traduireNomPoste(codeCommune) {
     const communes = {
@@ -24,7 +61,7 @@ function traduireNomPoste(codeCommune) {
         'kalamu': "Commune de Kalamu",
         'kasa-vubu': "Commune de Kasa-Vubu",
         'kimbanseke': "Commune de Kimbanseke",
-        'kinshasa': "Commune de Kinshasa",
+        'kinshasa': "Commune de Kinshasa (Centre)",
         'kintambo': "Commune de Kintambo",
         'kisenso': "Commune de Kisenso",
         'lemba': "Commune de Lemba",
@@ -45,7 +82,10 @@ function traduireNomPoste(codeCommune) {
     return communes[codeCommune] || "Commune / Antenne Non Spécifiée";
 }
 
-// 2. LOGIQUE DES CALCULS EN TEMPS RÉEL (HORS-LIGNE)
+/**
+ * LOGIQUE DES CALCULS EN TEMPS RÉEL (HORS-LIGNE)
+ * Lit le registre local et met à jour les 4 compteurs du tableau de bord
+ */
 function mettreAjourLesStatistiques() {
     let registreLocal = localStorage.getItem('registreDGM');
     let listeVoyageurs = [];
@@ -60,18 +100,20 @@ function mettreAjourLesStatistiques() {
     const countRecent = document.getElementById('countRecent');
 
     const total = listeVoyageurs.length;
-    if (countTotal) countTotal.textContent = total;
+    if (countTotal) countTotal.textContent = total.toLocaleString();
 
     const valides = listeVoyageurs.filter(v => v.statut === "VALIDE").length;
-    if (countValide) countValide.textContent = valides;
+    if (countValide) countValide.textContent = valides.toLocaleString();
 
     const expires = listeVoyageurs.filter(v => v.statut === "EXPIRÉ").length;
-    if (countExpire) countExpire.textContent = expires;
+    if (countExpire) countExpire.textContent = expires.toLocaleString();
 
-    if (countRecent) countRecent.textContent = total;
+    if (countRecent) countRecent.textContent = total.toLocaleString(); 
 }
 
-// Bouton d'action pour ouvrir le formulaire
+/**
+ * Redirection vers le formulaire d'enregistrement d'un étranger
+ */
 function ouvrirFormulaire() {
     window.location.href = "formulaire.html";
 }
