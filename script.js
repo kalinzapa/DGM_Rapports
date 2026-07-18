@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", function() {
             // BASE DE DONNÉES LOCALE DE TEST (Simule les comptes autorisés hors-ligne)
             const comptesAgents = [
                 { matricule: "DGM-1234", password: "1234", nom: "MASUDI Patthy", role: "Chef de Bureau" },
-                { matricule: "DGM-5678", password: "password123", nom: "KAVIRA Aline", role: "Agent de Saisie" }
+                { matricule: "DGM-5678", password: "5678", nom: "KALI David", role: "Agent de Saisie" }
             ];
 
             // Recherche de l'agent dans notre liste locale
@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", function() {
             } else {
                 // Notification d'erreur si les identifiants ne correspondent pas
                 // CORRECTION : Message mis à jour pour correspondre aux identifiants réels du script (DGM-1234 / 1234)
-                alert("❌ Matricule ou mot de passe incorrect. (Pour tester, utilisez Matricule: DGM-1234 et Mot de passe: 1234)");
+                alert("❌ Matricule ou mot de passe incorrect.");
             }
         });
     }
